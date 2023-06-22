@@ -4,10 +4,14 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.apache.commons.codec.binary.Base64;
 
 import com.gtmarttiles.command.Tiles;
 import com.gtmarttiles.dao.TilesRepo;
 import com.gtmarttiles.entity.TilesEntity;
+import com.gtmarttiles.multipartFile.CustomMultipartFile;
 
 @Service("tilesService")
 public class TilesServiceImpl implements TilesService {
@@ -26,6 +30,12 @@ public class TilesServiceImpl implements TilesService {
 		entity.setD(tiles.getD());
 		entity.setF(tiles.getF());
 		entity.setPrize(tiles.getPrize());
+		 // Set the image file in the TilesEntity object
+		byte[] imageBytes = null;
+	    if (!tiles.getImageFile().isEmpty()) {
+	        imageBytes = tiles.getImageFile().getBytes();
+	    }
+		entity.setImageFile(imageBytes);
 		return tilesRepo.add(entity);
 	}
 
@@ -44,6 +54,17 @@ public class TilesServiceImpl implements TilesService {
 			 tiles.setD(tilesEntity.getD());
 			 tiles.setF(tilesEntity.getF());
 			 tiles.setPrize(tilesEntity.getPrize());
+			 // Set the image file in the TilesEntity object
+				/*
+				 * MultipartFile multipartFile = new
+				 * CustomMultipartFile(tilesEntity.getImageFile(),
+				 * tilesEntity.getDesignNo()+".jpg"); System.out.println(multipartFile);
+				 * tiles.setImageFile(multipartFile);
+				 */	
+			 //Set Image to TilesCommand 
+			 String base64EncodedString = Base64.encodeBase64String(tilesEntity.getImageFile());
+			 tiles.setBase64EncodedImageFile(base64EncodedString);
+  	 
 		 }
 		 return tiles;
 				

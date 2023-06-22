@@ -10,10 +10,13 @@
 <body>
 	<br>
 	<br>
-	<form:form action="add" method="POST" commandName="tiles">
-		<center>
-			<table>
-				<tr>
+	<form:form action="add" method="POST" commandName="tiles" enctype="multipart/form-data">
+		<table>
+			<tr>
+				<td>Image File</td>
+				<td><input type="file" class="file" name="imageFile"/></td>
+			</tr>
+			<tr>
 					<td>Design Number</td>
 					<td><form:input path="designNo" /></td>
 				</tr>
@@ -41,11 +44,12 @@
 					<td>prize</td>
 					<td><form:input path="prize" /></td>
 				</tr>
-				<tr>
-					<td><input type="submit" value="ADD"></td>
-				</tr>
-			</table>
-		</center>
+			<tr>
+				<td>ADD</td>
+				<td><input type="submit" value="ADD" /></td>
+				<br></td>
+			</tr>
+		</table>
 	</form:form>
 
 </body>

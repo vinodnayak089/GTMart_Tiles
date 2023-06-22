@@ -3,7 +3,10 @@ package com.gtmarttiles.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "tiles")
@@ -31,6 +34,16 @@ public class TilesEntity {
 	@Column(name = "PRIZE")
 	private int prize;
 	
+	@Column(name = "IMAGE_FILE")
+    @Lob
+	private byte[] imageFile;
+
+    public byte[] getImageFile() {
+        return imageFile;
+    }
+    public void setImageFile(byte[] imageFile) {
+        this.imageFile = imageFile;
+    }
 	
 	public String getDesignNo() {
 		return designNo;
@@ -78,7 +91,7 @@ public class TilesEntity {
 	@Override
 	public String toString() {
 		return "Tiles [designNo=" + designNo + ", boxSize=" + boxSize + ", l=" + l + ", hl=" + hl + ", d=" + d + ", f="
-				+ f + ", prize=" + prize + "]";
+				+ f + ", prize=" + prize + ", imageFile=" + imageFile + "]";
 	}
 
 }

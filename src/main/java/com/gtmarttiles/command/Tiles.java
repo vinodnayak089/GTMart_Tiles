@@ -1,5 +1,7 @@
 package com.gtmarttiles.command;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Tiles {
 	
 	private String designNo;
@@ -9,6 +11,24 @@ public class Tiles {
 	private int d;
 	private int f;
 	private int prize;
+	private MultipartFile multipartImageFile;
+	private String base64EncodedImageFile;
+	
+	public void setBase64EncodedImageFile(String base64EncodedImageFile) {
+		this.base64EncodedImageFile = base64EncodedImageFile;
+	}
+	
+	public String getBase64EncodedImageFile() {
+		return base64EncodedImageFile;
+	}
+
+    public MultipartFile getImageFile() {
+        return multipartImageFile;
+    }
+
+    public void setImageFile(MultipartFile multipartImageFile) {
+        this.multipartImageFile = multipartImageFile;
+    }
 	
 	public String getDesignNo() {
 		return designNo;
@@ -56,6 +76,6 @@ public class Tiles {
 	@Override
 	public String toString() {
 		return "Tiles [designNo=" + designNo + ", boxSize=" + boxSize + ", l=" + l + ", hl=" + hl + ", d=" + d + ", f="
-				+ f + ", prize=" + prize + "]";
+				+ f + ", prize=" + prize + ", multipartImageFile=" + multipartImageFile + "]";
 	}
 }

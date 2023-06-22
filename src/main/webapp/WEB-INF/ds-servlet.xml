@@ -18,14 +18,21 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<context:component-scan base-package="com.gtmarttiles" />
+	<context:component-scan
+		base-package="com.gtmarttiles" />
 	<context:annotation-config />
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
 
-	<bean name="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+	<bean name="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+
+
+	<bean name="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass">
-				<value>org.springframework.web.servlet.view.tiles2.TilesView</value>
+			<value>org.springframework.web.servlet.view.tiles2.TilesView</value>
 		</property>
 	</bean>
 
@@ -37,57 +44,61 @@
 			</list>
 		</property>
 	</bean>
-	
-         <!-- local Oracle configurations -->
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
+
+	<!-- local Oracle configurations -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver"></property>
+		<property name="url"
+			value="jdbc:oracle:thin:@localhost:1521:orcl"></property>
 		<property name="username" value="sys as sysdba"></property>
 		<property name="password" value="system"></property>
 	</bean>
-	
-          <!-- Oracle RDS Instance Configurations --> 
-<!-- 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    	<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
-		<property name="url" value="jdbc:oracle:thin:@test-tiles-db-id.ckw5ishmwf3p.eu-north-1.rds.amazonaws.com:1521:ORCL"></property>
-		<property name="username" value="admin"></property>
-		<property name="password" value="gtmartdb"></property>
-	</bean>
- -->
-<!--          Local MySql configurations
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    	<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost:3306/gtmartdb_test"></property>
-		<property name="username" value="root"></property>
-		<property name="password" value="system"></property>
-	</bean>
- -->        
- 
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+
+	<!-- Oracle RDS Instance Configurations -->
+	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property> 
+		<property name="url" value="jdbc:oracle:thin:@test-tiles-db-id.ckw5ishmwf3p.eu-north-1.rds.amazonaws.com:1521:ORCL"></property> 
+		<property name="username" value="admin"></property> <property name="password" 
+		value="gtmartdb"></property> </bean> -->
+	<!-- Local MySql configurations <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> 
+		<property name="url" value="jdbc:mysql://localhost:3306/gtmartdb_test"></property> 
+		<property name="username" value="root"></property> <property name="password" 
+		value="system"></property> </bean> -->
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
 				<value>com.gtmarttiles.entity.TilesEntity</value>
 			</list>
 		</property>
-		
+
 
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
-<!-- 				<prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect</prop> -->
- 				<prop key="hibernate.show_sql">true</prop>
+				<!-- <prop key="hibernate.dialect"> org.hibernate.dialect.MySQLDialect</prop> -->
+				<prop key="hibernate.show_sql">true</prop>
+<!-- 				<prop key="hibernate.default_schema">system</prop> -->
+				<prop key="javax.persistence.schema-generation.database.action">create</prop>
+				<prop key="hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>
 
-	<bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate5.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
-		<property name="sessionFactory" ref="sessionFactory" />		
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate5.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory" />
 		<!-- <property name="checkWriteOperations" value="false" /> -->
-    </bean>
+	</bean>
 </beans>

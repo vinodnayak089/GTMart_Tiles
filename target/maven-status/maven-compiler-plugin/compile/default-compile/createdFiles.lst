@@ -1,5 +1,6 @@
 com\gtmarttiles\command\Tiles.class
 com\gtmarttiles\service\TilesService.class
+com\gtmarttiles\multipartFile\CustomMultipartFile.class
 com\gtmarttiles\dao\TilesRepo.class
 com\gtmarttiles\controller\TilesController.class
 com\gtmarttiles\dao\TilesRepoImpl.class
